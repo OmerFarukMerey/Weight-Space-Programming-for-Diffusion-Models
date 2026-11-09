@@ -1,0 +1,122 @@
+{
+  "fabric": [
+    "macro photograph of coarse woven burlap fabric, highly detailed",
+    "a chunky knitted wool sweater folded on a table, close-up photo",
+    "close-up of faded denim jeans with visible stitching, photograph",
+    "a linen tablecloth with fine embroidery, detailed photo",
+    "a pile of colorful silk scarves with intricate patterns, photograph",
+    "a worn leather armchair with cracked upholstery, close-up photo",
+    "a handmade persian carpet with ornate detail, top-down photo",
+    "tweed jacket fabric, extreme close-up, sharp focus"
+  ],
+  "fur": [
+    "a tabby cat sitting on a wool blanket, detailed fur, photograph",
+    "a golden retriever puppy on the grass, sharp focus, photograph",
+    "close-up portrait of a red fox with thick winter fur, wildlife photo",
+    "a fluffy white rabbit in a meadow, detailed photo",
+    "a highland cow with shaggy hair standing in the mist, photograph",
+    "a snow leopard resting on rocks, national geographic photo",
+    "a sheep with thick wool in a green field, photograph",
+    "a brown bear in a forest, detailed fur, wildlife photograph"
+  ],
+  "foliage": [
+    "an old mossy stone wall covered in ivy leaves, sharp focus",
+    "dense fern fronds on a forest floor, macro photograph",
+    "autumn maple leaves on the ground, detailed photo",
+    "a lush tropical jungle canopy seen from above, aerial photo",
+    "a field of tall grass blowing in the wind, photograph",
+    "close-up of a green leaf with visible veins, macro photo",
+    "a pine tree branch covered in needles and cones, sharp focus",
+    "wildflowers in a meadow with bees, detailed photograph"
+  ],
+  "stone": [
+    "a rough granite cliff face, highly detailed photograph",
+    "a cobblestone street after the rain, photograph",
+    "weathered sandstone rock formations in the desert, photo",
+    "a pile of smooth river pebbles, top-down macro photograph",
+    "an ancient cracked marble column, close-up photo",
+    "a dry stone wall in the countryside, sharp focus",
+    "volcanic rock with a porous surface, extreme close-up",
+    "a limestone cave with stalactites, detailed photograph"
+  ],
+  "wood": [
+    "close-up of weathered oak bark, highly detailed photograph",
+    "a rustic barn door with peeling paint, close-up photo",
+    "the end grain of a freshly cut log showing tree rings, macro photo",
+    "a stack of firewood with rough split faces, photograph",
+    "a handcrafted walnut table with visible grain, photo",
+    "driftwood on a sandy beach, detailed photograph",
+    "an old wooden ship deck with planks and rope, photo",
+    "a birch tree trunk with peeling bark, sharp focus"
+  ],
+  "metal": [
+    "a rusty iron gate with flaking paint, close-up photograph",
+    "brushed stainless steel surface with scratches, macro photo",
+    "an antique brass pocket watch with engravings, detailed photo",
+    "corroded copper pipes with green patina, photograph",
+    "a vintage motorcycle engine, chrome and grease, sharp focus",
+    "a chain link fence with rust, close-up photo",
+    "a medieval suit of armor with intricate engraving, photograph",
+    "gears and cogs inside a mechanical clock, macro photograph"
+  ],
+  "food": [
+    "a rustic loaf of sourdough bread with a crackled crust, photo",
+    "a slice of chocolate cake with crumbs on a plate, close-up photo",
+    "fresh strawberries with visible seeds, macro photograph",
+    "a bowl of ramen with noodles and toppings, food photography",
+    "a wedge of aged cheese with holes, detailed photo",
+    "a pile of roasted coffee beans, sharp focus, macro photo",
+    "a pizza with melted cheese and basil, top-down photo",
+    "a pomegranate cut open showing the seeds, close-up photo"
+  ],
+  "architecture": [
+    "a gothic cathedral facade with intricate stone carvings, photo",
+    "a brick apartment building in new york, street photograph",
+    "an ornate islamic tile mosaic on a mosque wall, close-up photo",
+    "a wooden japanese temple with detailed roof beams, photograph",
+    "an abandoned factory with broken windows, urban photography",
+    "a narrow alley in an old italian town, photograph",
+    "a stained glass window in a church, detailed photo",
+    "a roman aqueduct at sunset, detailed photograph"
+  ],
+  "people": [
+    "portrait of an elderly fisherman with a weathered face, photograph",
+    "close-up of a woman with freckles and curly red hair, photo",
+    "a man with a thick grey beard wearing a wool hat, portrait photo",
+    "hands of a potter shaping wet clay, close-up photograph",
+    "a young girl with braided hair smiling, natural light portrait",
+    "a street musician playing a violin, candid photograph",
+    "a blacksmith working at a forge, detailed photograph",
+    "an old woman knitting by the window, portrait photo"
+  ],
+  "landscape": [
+    "a snowy mountain range under a clear sky, landscape photograph",
+    "rolling sand dunes with ripples in the desert, aerial photo",
+    "a misty valley with a winding river at dawn, photograph",
+    "a rocky coastline with crashing waves, long exposure photo",
+    "a lavender field in provence at sunset, landscape photo",
+    "a canyon with layered red rock strata, wide angle photo",
+    "a frozen lake with cracked ice and mountains, photograph",
+    "terraced rice fields in the morning light, aerial photo"
+  ],
+  "water_ice": [
+    "water droplets on a spider web, macro photograph",
+    "frost crystals on a window pane, extreme close-up photo",
+    "bubbles rising in a glass of sparkling water, macro photo",
+    "ocean waves with sea foam, detailed photograph",
+    "an icicle-covered tree branch in winter, close-up photo",
+    "ripples on the surface of a pond, top-down photograph",
+    "a waterfall over dark mossy rocks, long exposure photo",
+    "fresh snow with animal tracks, close-up photograph"
+  ],
+  "feathers_scales": [
+    "a peacock with its tail feathers spread, detailed photograph",
+    "close-up of a snake with iridescent scales, macro photo",
+    "an owl with mottled feathers perched on a branch, wildlife photo",
+    "a koi fish with shiny scales in a pond, sharp focus",
+    "a chameleon on a branch, skin texture, macro photograph",
+    "a hummingbird with shimmering feathers near a flower, photo",
+    "the wing of a butterfly under a microscope, macro photo",
+    "a crocodile with rough armored skin, close-up photograph"
+  ]
+}

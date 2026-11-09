@@ -1,0 +1,14 @@
+{
+  "sha256": "5b70b287a9fead33",
+  "weights_changed": 409600,
+  "weights_total": 323384964,
+  "fraction_changed": 0.0012666018695909435,
+  "params_touched": 1,
+  "per_param": {
+    "time_embedding.linear_1.weight": {
+      "changed": 409600,
+      "of": 409600,
+      "rel_l2": 0.2597283720970154
+    }
+  }
+}

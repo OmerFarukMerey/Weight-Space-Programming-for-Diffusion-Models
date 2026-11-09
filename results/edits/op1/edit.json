@@ -1,0 +1,19 @@
+{
+  "sha256": "a4cd4c96d203e765",
+  "weights_changed": 421120,
+  "weights_total": 323384964,
+  "fraction_changed": 0.001302225047173189,
+  "params_touched": 2,
+  "per_param": {
+    "conv_out.weight": {
+      "changed": 11520,
+      "of": 11520,
+      "rel_l2": 0.011499998159706593
+    },
+    "time_embedding.linear_1.weight": {
+      "changed": 409600,
+      "of": 409600,
+      "rel_l2": 0.20784412324428558
+    }
+  }
+}

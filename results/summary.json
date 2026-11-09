@@ -1,0 +1,92 @@
+{
+ "H1_premise": {
+  "test_seen": {
+   "coarse": {
+    "share_positive": 0.975,
+    "mean": 4.888330587388026,
+    "lo": 4.119598709352215,
+    "hi": 5.715435318789505
+   },
+   "fine": {
+    "share_positive": 1.0,
+    "mean": 4.67563685180459,
+    "lo": 4.037437717467081,
+    "hi": 5.378842299832456
+   }
+  },
+  "test_new": {
+   "coarse": {
+    "share_positive": 0.9375,
+    "mean": 4.3833199173834405,
+    "lo": 3.3925220815225083,
+    "hi": 5.376444236153517
+   },
+   "fine": {
+    "share_positive": 0.96875,
+    "mean": 4.576186342551535,
+    "lo": 3.763910192867797,
+    "hi": 5.382786071415521
+   }
+  },
+  "passes": true
+ },
+ "checks": {
+  "op1": {
+   "H2_texture_generalizes": true,
+   "H3_perceptual_improves": true,
+   "H4_saves_steps": false,
+   "H5_keeps_meaning": true,
+   "H6_beats_null": true,
+   "H7_causal": true
+  },
+  "op2": {
+   "H2_texture_generalizes": true,
+   "H3_perceptual_improves": true,
+   "H4_saves_steps": false,
+   "H5_keeps_meaning": true,
+   "H6_beats_null": true,
+   "H7_causal": true
+  },
+  "op3": {
+   "H2_texture_generalizes": true,
+   "H3_perceptual_improves": true,
+   "H4_saves_steps": false,
+   "H5_keeps_meaning": true,
+   "H6_beats_null": true,
+   "H7_causal": true
+  }
+ },
+ "scores": {
+  "op1": 1.2286527444927833,
+  "op2": 1.271508389396033,
+  "op3": 1.2550103251520655,
+  "climb1": 1.6827293815086612,
+  "climb2": 1.7318968154919692,
+  "climb3": 1.8082550614415704,
+  "unsharp": 1.4360947139118672
+ },
+ "verdict": {
+  "label": "Partial",
+  "operators_passing_H2": 3,
+  "operators_passing_all": 0,
+  "median_llm_score": 1.2550103251520655,
+  "median_climb_score": 1.7318968154919692,
+  "H6_beats_climb": true,
+  "filter_score": 1.4360947139118672,
+  "filter_matches_llm": false
+ },
+ "nulls": {
+  "op1": {
+   "share_null_at_least_as_good": 0.0,
+   "real_score": 1.2843722231751562
+  },
+  "op2": {
+   "share_null_at_least_as_good": 0.0,
+   "real_score": 1.30292836178947
+  },
+  "op3": {
+   "share_null_at_least_as_good": 0.0,
+   "real_score": 1.311001198399752
+  }
+ }
+}

@@ -218,3 +218,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Experiment artifacts: model caches and generated images are large and
+# reproducible. Summaries worth keeping are copied to results/.
+runs/
