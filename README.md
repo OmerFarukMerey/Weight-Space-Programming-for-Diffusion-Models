@@ -1,4 +1,51 @@
-# Weight-Space Programming for Diffusion Models
+# Anatomy of Acceleration Adapters
+
+Where does few-step ability live inside a distilled diffusion model? Few-step distillation
+is often shipped as a low-rank weight delta on a base model, such as LCM-LoRA. This repo
+takes those deltas apart in weight space.
+
+It is a term project for Generative Models for Multimedia at METU. The proposal is in
+[`research_ideas/proposal.md`](research_ideas/proposal.md).
+
+## Current direction
+
+**Status: one pilot done, replication not started.**
+
+The pilot dissected LCM-LoRA for Stable Diffusion 1.5 (278 modules, rank 64) at 4 steps on
+16 prompts. "Recovery" is how much of the full adapter's effect a part reproduces, measured
+by LPIPS distance to the full adapter's same-seed image.
+
+| Part of the adapter kept | Recovery |
+|---|---:|
+| Full adapter, rank 64 | 1.00 |
+| Rank 8 | 0.98 |
+| **Rank 4** | **0.96** |
+| Decoder (up) blocks only | 0.75 |
+| Encoder (down) blocks only | 0.01 |
+| Time-embedding projections only | 0.00 |
+
+- **The adapter is effectively rank 4 or lower.** The median module needs 2 singular
+  directions for 90% of its energy.
+- **The decoder carries it.** Up blocks hold 82% of the adapter's energy.
+- **The time-conditioning path is nearly idle.** Removing it costs 6% of the effect.
+
+![Columns: no adapter, time layers only, convolutions only, self-attention only, cross-attention only, rank 4, rank 16, full adapter](results/pilots/c_lora_anatomy.png)
+
+*Columns: no adapter, time layers only, convolutions only, self-attention only,
+cross-attention only, rank 4, rank 16, full adapter.*
+
+This is one adapter, 16 prompts and a closeness metric, not image quality. The next step is
+to repeat it on Hyper-SD, TCD and DMD2 adapters, with a go/no-go decision on 1 December 2026.
+
+| Read | For |
+|---|---|
+| [`research_ideas/proposal.md`](research_ideas/proposal.md) | Questions, hypotheses, plan and timeline |
+| [`research_ideas/study-guide.md`](research_ideas/study-guide.md) | Background and reading list |
+| [`research_ideas/pilots.md`](research_ideas/pilots.md) | How the pilots were run |
+
+## Experiment 1: can an LLM edit denoiser weights?
+
+The project started from a different question, and this experiment is why it changed.
 
 Can an LLM repair a few-step diffusion failure by editing the denoiser's weights
 directly, without gradients? This repo tests that idea, adapted from
@@ -10,7 +57,7 @@ directly, without gradients? This repo tests that idea, adapted from
 > tek bir düzenlemenin yeni promptlarda da işe yarayıp yaramadığını ve bu sayede daha az
 > adımda benzer görüntü kalitesine ulaşılıp ulaşılamadığını test etmek istiyorum.
 
-## Result
+### Result
 
 **Pre-registered verdict: Partial.** Three independent LLM agents each found a gradient-free
 edit that restores lost texture on prompts and categories they never saw. It does not deliver
@@ -39,7 +86,7 @@ Three more things to know before using these edits:
 50 steps, then the same three magnified. Row 1 shows the invented wrinkles. Row 4 shows that
 composition stays wrong: the driftwood is still a pile of sticks.*
 
-## Hypotheses
+### Hypotheses
 
 Scored mechanically by `wspd/report.py` against criteria fixed in
 [`docs/PREREGISTRATION.md`](docs/PREREGISTRATION.md). H1 applies to the unedited model, H6 is
@@ -55,7 +102,7 @@ scored per operator and against the climb median, and the rest are per operator 
 | H6 | Beats blind search, and beats random placement | pass | pass | pass |
 | H7 | Dose response is causal | pass | pass | pass |
 
-## Results by arm
+### Results by arm
 
 T is the texture deficit in dB and L is LPIPS, both against the same-seed 50-step image. Lower is
 better. Score is `T/T_base + L/L_base`, where 2.0 is the unedited model. Brackets are 95% paired
@@ -85,14 +132,14 @@ bootstrap intervals. "Seen" and "new" are the prompt categories.
 
 ![Where edited 6-step results land on the unedited step curve](results/fig_step_curve.png)
 
-### The edit has a real optimum
+#### The edit has a real optimum
 
 Strength 1 is close to the best point for all three operators, and reversing the edit makes things
 worse. Overshoot sets in by strength 1.5.
 
 ![Dose response](results/fig_dose.png)
 
-## What the LLMs found
+### What the LLMs found
 
 All three operators, working separately, converged on the same tensor. Each one remapped the
 timestep the network perceives by refitting `time_embedding.linear_1` in closed form, leaving high
@@ -105,7 +152,7 @@ architecture knowledge, activation probes, a Gaussian model of DDIM and 21-30 me
 the final constants were tuned by experiment. This is not the "reading weights natively" the
 article describes.
 
-## Exploratory: was weight editing needed?
+### Exploratory: was weight editing needed?
 
 This analysis was not pre-registered. It uses the operators' own constants, so nothing is selected
 on test data. See [`scripts/sampler_equivalence.py`](scripts/sampler_equivalence.py).
@@ -149,7 +196,7 @@ The article's own caution fits: editing weights could remove an obstacle hiding 
 could not add an ability the model lacked. Here the texture was never missing from the model, only
 from this large-step trajectory.
 
-## Limits
+### Limits
 
 - **One small model and one sampler.** The premise itself fails on the other two schedules tested
   (8 prompts), and the edits were not tested there.
@@ -161,7 +208,7 @@ from this large-step trajectory.
 - **The blind control is deliberately simple.** It scales whole tensors at random, and a better
   optimizer would do better.
 
-### Deviations and process notes
+#### Deviations and process notes
 
 - The pre-registration was amended once, before any edit had been scored on any split, to resolve a
   contradiction about what a matching filter implies. Both hashes are in
@@ -178,14 +225,19 @@ from this large-step trajectory.
   edits reproduce exactly from their scripts. A local machine cannot truly seal files from an agent with
   shell access, so this is an audit rather than a guarantee.
 
-## Next experiments
+### What came next
 
-1. **Look for edits a sampler cannot express.** op1 found on dev prompts that applying a remap only to the
-   high-resolution blocks' time projections gave T 1.33. Different blocks seeing different timesteps has
-   no sampler equivalent. This is the most direct test of whether weight space offers anything extra.
-2. **Target composition error directly.** That is where the remaining quality gap sits, and it is much
-   harder than restoring texture.
-3. **Replicate on SD 1.5**, to see whether the same family of edits appears on a larger model.
+The follow-ups suggested by this experiment were piloted on 10 November 2026:
+
+- **Edits a sampler cannot express.** Giving each resolution level of the UNet its own
+  timestep gained 0.04 dB over one shifted timestep. Negative.
+- **Blind search in a sensible space.** A compass search over four sampler parameters, with
+  the agents' budget, scored 1.283 against 1.229-1.272 for the agents.
+- **Composition error.** It is decided entirely above t=666. A front-loaded schedule cuts
+  it by 28% at equal cost, but perceptual distance does not move.
+
+Details are in [`research_ideas/pilots.md`](research_ideas/pilots.md). These results led to
+the current direction at the top of this page.
 
 ## Reproduce
 
@@ -208,6 +260,13 @@ scripts/evaluate_all.sh      # blind climbs, sealed scoring, nulls, filter, repo
 .venv/bin/python scripts/make_sheet.py op1
 ```
 
+The adapter dissection is one script. It needs Stable Diffusion 1.5 and downloads the 135 MB
+LCM-LoRA file on first use:
+
+```bash
+.venv/bin/python scripts/pilots/c_lora_anatomy.py
+```
+
 The model is `segmind/tiny-sd` at a pinned revision, with 323M UNet weights against 860M for SD 1.5. It
 ships pickled `.bin` weights, which load through PyTorch's `weights_only` path.
 
@@ -223,6 +282,10 @@ src/wspd/edits.py            Edit format, gradient lint and validation
 src/wspd/model.py            Sampling and activation probes, with autograd disabled
 src/wspd/metrics.py          Spectra, LPIPS, SWD, CLIP and step equivalence
 src/wspd/report.py           Scores hypotheses and draws figures
+src/wspd/lab.py              Sampler-level interventions used by the pilots
+scripts/pilots/              Pilot experiments, including the adapter dissection
+research_ideas/              Proposal, study guide and pilot notes for the current direction
 results/                     Scores, figures, and each operator's edit, ledger and report
+results/pilots/              Raw pilot outputs
 runs/                        Caches and generated images (gitignored)
 ```
