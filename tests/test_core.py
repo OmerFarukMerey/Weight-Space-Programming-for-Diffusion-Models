@@ -254,3 +254,24 @@ def test_ledger_never_reuses_a_folder(tmp_path, monkeypatch):
     monkeypatch.setattr(config, "RUNS", tmp_path)
     ledger = Ledger("run")
     assert ledger.new_folder("try") != ledger.new_folder("try")
+
+
+def test_trailing_matches_diffusers_spacing():
+    from wspd.lab import trailing, warped
+
+    assert trailing(6) == [999, 832, 666, 499, 332, 166]
+    assert warped(6, 1.0) == trailing(6)
+    assert warped(6, 0.7)[-1] > trailing(6)[-1] > warped(6, 1.4)[-1]
+
+
+def test_plan_shift_and_nfe():
+    from wspd.lab import OP3_KNOTS, Plan
+
+    plain = Plan((999, 499, 166))
+    assert plain.delta(499, 166) == 0 and plain.nfe == 6
+    half = Plan((999, 499, 166), relabel=0.5, relabel_below=500)
+    assert half.delta(999, 499) == 0 and half.delta(499, 166) == pytest.approx(166.5)
+    assert Plan((999, 166), knots=OP3_KNOTS).delta(166, 0) == pytest.approx(85)
+    assert Plan((999, 499, 166), guided=(True, True, False)).nfe == 5
+    per_step = Plan((999, 499, 166), relabel_steps=(0.0, 0.5, 1.0))
+    assert per_step.delta(999, 499, 0) == 0 and per_step.delta(166, 0, 2) == pytest.approx(166)
