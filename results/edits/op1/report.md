@@ -1,7 +1,7 @@
 **op1 report: edit submitted, sealed as `a4cd4c96d203e765`.** It restores texture energy and statistics at 5, 6 and 8 steps on the dev prompts. It does not fix composition errors. All 40 units are used.
 
 ## 1. Weights changed
-421,120 weights in 2 parameters, from `/Users/ofm/Desktop/my_repostation/Weight-Space-Programming-for-Diffusion-Models/runs/op1/V3.py`:
+421,120 weights in 2 parameters, from `runs/op1/V3.py`:
 
 - **`conv_out.weight` (11,520 weights, rel_l2 0.0115):** multiplied by 0.9885. The bias is untouched.
 - **`time_embedding.linear_1.weight` (409,600 weights, rel_l2 0.208):** replaced with `W' = W + W (Eg-E)^T E (E^T E + 10 I)^-1`.
@@ -80,4 +80,4 @@ These confidence figures are my own judgement, not computed:
 
 I expect the texture gain to shrink somewhat, to about 2 at 6 steps, because the strength was set on dev prompts and those 8 categories may not represent the unseen ones. Smooth subjects are the most likely to be over-textured.
 
-Scripts and all try and probe outputs are in `/Users/ofm/Desktop/my_repostation/Weight-Space-Programming-for-Diffusion-Models/runs/op1/`; the sealed edit is in its `final` subfolder.
+Scripts and all try and probe outputs are in `runs/op1/`; the sealed edit is in its `final` subfolder.

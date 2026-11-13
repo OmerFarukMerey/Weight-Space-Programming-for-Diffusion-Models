@@ -8,7 +8,7 @@ The edit clearly improves texture and SWD on dev at 5, 6 and 8 steps. The LPIPS 
 - **Fit settings:** ridge is 10, regularised towards dL = 0. The 16 timesteps visited by 5, 6 and 8-step sampling get weight 200. At those timesteps the time-embedding error is at most 0.004, against a shift of about 1.3-2.0.
 - **delta(t):** piecewise linear through knots (t, delta): (0,0), (124,60), (166,85), (199,100), (249,70), (400,70), (470,0), (1000,0).
 - **Effect:** timesteps at or above 470 are unchanged, so the early steps behave as before.
-- **Script:** `/Users/ofm/Desktop/my_repostation/Weight-Space-Programming-for-Diffusion-Models/runs/op3/c4.py`, sealed in `runs/op3/final/`.
+- **Script:** `runs/op3/c4.py`, sealed in `runs/op3/final/`.
 
 ## 2. Hypothesis
 DDIM takes one epsilon estimate at the start of each big step and holds it for the whole step. The conditional-mean estimate removes too much, so modes get under-amplified, and the last step is worst because it jumps straight to x0.
