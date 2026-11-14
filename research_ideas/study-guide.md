@@ -92,11 +92,35 @@ The open questions, in the order to answer them:
 | Other adapters to dissect | DMD, [2311.18828](https://arxiv.org/abs/2311.18828); DMD2, [2405.14867](https://arxiv.org/abs/2405.14867); Hyper-SD, [2404.13686](https://arxiv.org/abs/2404.13686); TCD, [2402.19159](https://arxiv.org/abs/2402.19159); SDXL-Lightning, [2402.13929](https://arxiv.org/abs/2402.13929) | Step 1 of the plan |
 | Linear algebra | Eckart–Young theorem; principal angles between subspaces | Why SVD truncation is optimal, and how to compare two adapters |
 | Closest competitors | WaDi, [2603.08258](https://arxiv.org/abs/2603.08258); MTEO, [2603.22375](https://arxiv.org/abs/2603.22375) | Read before anything else. They decide how you position the paper. Not read by the author of this guide |
+| Shared subspaces across adapters | EigenLoRAx, Kaushik et al., CVPR 2025, [2502.04700](https://arxiv.org/abs/2502.04700); The Universal Weight Subspace Hypothesis, Kaushik et al., [2512.05117](https://arxiv.org/abs/2512.05117) | A method for the "do methods agree?" question, and a competing claim. Known from search summaries only, not read by the author of this guide |
+| Follow-up to the subspace papers | Shared LoRA Subspaces for almost Strict Continual Learning ("Share"), Kaushik et al., [2602.06043](https://arxiv.org/abs/2602.06043) | Learns one shared low-rank subspace meant to replace many task-specific LoRAs. Lower priority. Known from a search summary only |
+| Secondary summary | [Review of the Universal Weight Subspace Hypothesis](https://www.themoonlight.io/en/review/the-universal-weight-subspace-hypothesis) | Says the paper's SDXL LoRA subspace kept image quality. Not a citable source: use it to decide what to check in the paper itself |
+
+### How EigenLoRAx relates to this project
+
+EigenLoRAx takes many trained LoRA adapters for one base model, runs a principal-component
+analysis across them, and finds a small subspace they share. A new task then trains only
+coefficients on those shared directions. Code: `github.com/toshi2k2/EigenLoRA`.
+
+- **It gives you a method.** Its procedure for extracting shared directions can be reused
+  for the "do methods agree?" question, next to principal angles.
+- **It predicts your control.** If ordinary LoRAs already share a low-rank subspace, the
+  style-LoRA control should show low rank too. Then "LCM-LoRA is rank 4" alone says little.
+- **It suggests a use.** Extract a shared acceleration subspace from several adapters and
+  train only coefficients in it, as an alternative to training a rank-4 adapter directly.
+- **Its follow-up competes.** The Universal Weight Subspace Hypothesis claims that networks
+  trained on different tasks converge to a shared low-rank subspace. "Adapters share a
+  subspace" is therefore not a headline claim on its own.
+
+What remains specific to this project: adapters that differ by distillation objective and
+not by task, the block and module-type breakdown, and whether the acceleration subspace
+differs from the generic one that style LoRAs share.
 
 ## Suggested reading order
 
 1. DDIM, then classifier-free guidance.
 2. LoRA, then LCM and LCM-LoRA.
 3. WaDi and MTEO, to see how close the competition is.
-4. Task arithmetic and the intrinsic-dimension paper.
-5. The other distillation papers, as you reach each adapter.
+4. EigenLoRAx, then the Universal Weight Subspace Hypothesis.
+5. Task arithmetic and the intrinsic-dimension paper.
+6. The other distillation papers, as you reach each adapter.
